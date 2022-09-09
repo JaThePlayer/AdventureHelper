@@ -1,0 +1,5 @@
+mods.AdventureHelper.name=Adventure Helper
+
+# Outro Car
+entities.AdventureHelper/OutroCar.placements.name.outro_car=Outro Car
+entities.AdventureHelper/OutroCar.attributes.description.hasRoadAndBarriers=Determines whether the car should come with road and barriers.
