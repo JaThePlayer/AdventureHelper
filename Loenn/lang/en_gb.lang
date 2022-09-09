@@ -1,5 +1,14 @@
 mods.AdventureHelper.name=Adventure Helper
 
+# Custom Crystal Heart
+entities.AdventureHelper/CustomCrystalHeart.placements.name.custom=Custom Crystal Heart (Custom)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.blue=Custom Crystal Heart (Blue)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.red=Custom Crystal Heart (Red)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.gold=Custom Crystal Heart (Gold)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.white=Custom Crystal Heart (White)
+entities.AdventureHelper/CustomCrystalHeart.attributes.description.color=If no path is set this tints the white default crystal heart with the RGB hex color specified (example: 000000 is black, ff0000 is red). Also sets the glow color and particle colors even when a path is set. \n\nNOTE: It is ignored if path is any of the following: heartgem0, heartgem1, heartgem2, heartgem3.
+entities.AdventureHelper/CustomCrystalHeart.attributes.description.path=Leave blank to tint the default white (fake) crystal heart. Set this path to a sprite that has a loop named "spin", that will be played repeatedly with a pulse at the end of the loop. \n\nFor an example see "Graphics/KaydenFox/AdventureHelperSprites.xml" > "adventure_helper_custom_heart_example". \n\nNOTE: don't forget to reference your xml in the metadata.
+
 # Outro Car
 entities.AdventureHelper/OutroCar.placements.name.outro_car=Outro Car
 entities.AdventureHelper/OutroCar.attributes.description.hasRoadAndBarriers=Determines whether the car should come with road and barriers.
