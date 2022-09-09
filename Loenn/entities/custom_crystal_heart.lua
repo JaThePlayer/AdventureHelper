@@ -1,4 +1,5 @@
 local drawableSprite = require "structs.drawable_sprite"
+local utils = require "utils"
 
 local customCrystalHeart = {}
 
@@ -80,6 +81,11 @@ function customCrystalHeart.sprite(room, entity)
     local sprite = drawableSprite.fromTexture(texture, entity)
     sprite.color = {1.0, 1.0, 1.0, 1.0}
     return sprite
+end
+
+function customCrystalHeart.selection(room, entity)
+    local x, y = entity.x or 0, entity.y or 0
+    return utils.rectangle(x - 8, y - 8, 16, 16)
 end
 
 return customCrystalHeart
