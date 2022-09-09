@@ -12,3 +12,6 @@ entities.AdventureHelper/CustomCrystalHeart.attributes.description.path=Leave bl
 # Outro Car
 entities.AdventureHelper/OutroCar.placements.name.outro_car=Outro Car
 entities.AdventureHelper/OutroCar.attributes.description.hasRoadAndBarriers=Determines whether the car should come with road and barriers.
+
+# Dash Push Block
+entities.AdventureHelper/DashPushBlock.placements.name.dash_push_block=Dash Push Block
