@@ -1,0 +1,6 @@
+- Name: AdventureHelper
+  Version: 1.5.6
+  DLL: bin/AdventureHelper.dll
+  Dependencies:
+    - Name: Everest
+      Version: 1.2593.0
