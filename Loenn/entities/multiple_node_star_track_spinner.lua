@@ -15,7 +15,7 @@ multipleNodeBladeTrackSpinner.fieldInformation = {
 
 multipleNodeBladeTrackSpinner.placements = {
     {
-        name = "multiple_node_blade_track_spinner",
+        name = "multiple_node_star_track_spinner",
         data = {
             moveTime = 0.4,
             pauseTime = 0.2,
