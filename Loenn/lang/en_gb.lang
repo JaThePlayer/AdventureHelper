@@ -27,3 +27,10 @@ entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.moveT
 entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the spinner waits at each node.
 entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the spinner will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
 entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the spinner will pause in place during cutscenes.
+
+# Multiple Node Dust Track Spinner
+entities.AdventureHelper/DustTrackSpinnerMultinode.placements.name.multiple_node_dust_track_spinner=Dust Sprite (Track Multi-Node)
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the spinner to get from node to node.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the spinner waits at each node.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the spinner will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the spinner will pause in place during cutscenes.
