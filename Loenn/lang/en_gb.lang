@@ -34,3 +34,17 @@ entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.moveTi
 entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the spinner waits at each node.
 entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the spinner will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
 entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the spinner will pause in place during cutscenes.
+
+# Multiple Node Dust Track Spinner
+entities.AdventureHelper/DustTrackSpinnerMultinode.placements.name.multiple_node_dust_track_spinner=Dust Sprite (Track Multi-Node)
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the dust sprite to get from node to node.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the dust sprite waits at each node.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the dust sprite will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the dust sprite will pause in place during cutscenes.
+
+# Multiple Node Star Track Spinner
+entities.AdventureHelper/StarTrackSpinnerMultinode.placements.name.multiple_node_star_track_spinner=Star (Track Multi-Node)
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the star to get from node to node.
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the star waits at each node.
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the star will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the star will pause in place during cutscenes.
