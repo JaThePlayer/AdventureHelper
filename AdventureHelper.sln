@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureHelper", "AdventureHelper.csproj", "{CE0E33F0-6A74-465F-948E-7D9D5E4781D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureHelper", "Code\AdventureHelper.csproj", "{521D4BD1-EF05-4BB0-8219-8208DFD60D27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE0E33F0-6A74-465F-948E-7D9D5E4781D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE0E33F0-6A74-465F-948E-7D9D5E4781D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE0E33F0-6A74-465F-948E-7D9D5E4781D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE0E33F0-6A74-465F-948E-7D9D5E4781D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{521D4BD1-EF05-4BB0-8219-8208DFD60D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521D4BD1-EF05-4BB0-8219-8208DFD60D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521D4BD1-EF05-4BB0-8219-8208DFD60D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521D4BD1-EF05-4BB0-8219-8208DFD60D27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {51878C61-12D3-4A35-BBB5-1C63BB5B186C}
+		SolutionGuid = {CCC5153A-6138-4735-81CB-004A77E218DC}
 	EndGlobalSection
 EndGlobal
