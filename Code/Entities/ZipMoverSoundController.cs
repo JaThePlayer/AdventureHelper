@@ -5,6 +5,11 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     public static class ZipMoverSoundController {
         public static Dictionary<string, SoundSource> activeSounds = new();
 
+        public enum SoundType {
+            Returning,
+            NonReturning
+        }
+
         public static void PlaySound(string colorCode, SoundType type, Solid block) {
             string name = $"{colorCode}-{type}";
             if (!activeSounds.ContainsKey(name)) {
@@ -32,11 +37,6 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 activeSounds.Remove(name);
                 source.Stop();
             }
-        }
-
-        public enum SoundType {
-            Returning,
-            NonReturning
         }
     }
 }

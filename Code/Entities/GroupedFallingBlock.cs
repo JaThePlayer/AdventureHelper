@@ -21,11 +21,6 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         private TileGrid _tiles;
         private GroupedFallingBlock _master;
 
-        public bool HasStartedFalling { get; private set; }
-        public bool HasGroup { get; private set; }
-        public bool MasterOfGroup { get; private set; }
-        public Vector2 GroupPosition => new(GroupBoundsMin.X, GroupBoundsMin.Y);
-
         public GroupedFallingBlock(Vector2 position, float width, float height, char tileType, bool climbFall)
         : base(position, width, height, safe: true) {
             _climbFall = climbFall;
@@ -39,6 +34,12 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         public GroupedFallingBlock(EntityData data, Vector2 offset)
             : this(data.Position + offset, data.Width, data.Height, data.Char("tiletype", '3'), data.Bool("climbFall", defaultValue: true)) {
         }
+
+        public bool HasStartedFalling { get; private set; }
+        public bool HasGroup { get; private set; }
+        public bool MasterOfGroup { get; private set; }
+        public Vector2 GroupPosition => new(GroupBoundsMin.X, GroupBoundsMin.Y);
+
         public override void Awake(Scene scene) {
             base.Awake(scene);
             if (!HasGroup) {

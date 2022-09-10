@@ -7,6 +7,32 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     public class MultipleNodeTrackSpinner : Entity {
         public float PauseTimer;
 
+        public MultipleNodeTrackSpinner(EntityData data, Vector2 offset) {
+            PauseOnCutscene = data.Bool("pauseOnCutscene");
+            PauseFlag = data.Attr("pauseFlag");
+            HasPauseFlag = !PauseFlag.Equals("");
+
+            playerDead = false;
+            Moving = true;
+            Collider = new ColliderList(new Collider[]
+            {
+                new Circle(6f, 0f, 0f),
+            });
+            Add(new PlayerCollider(new Action<Player>(OnPlayer)));
+            Path = new Vector2[data.Nodes.GetLength(0) + 1];
+            Path[0] = data.Position + offset;
+            for (int i = 0; i < data.Nodes.GetLength(0); i++) {
+                Path[i + 1] = data.Nodes[i] + offset;
+            }
+
+            MoveTime = data.Float("moveTime", 0.4f);
+            PauseTime = data.Float("pauseTime", 0.2f);
+            Angle = (Path[1] - Path[0]).Angle();
+            Percent = 0f;
+            CurrentStart = 0;
+            UpdatePosition();
+        }
+
         /// <summary>
         /// Percentage along the track it currently travels through.
         /// </summary>
@@ -62,31 +88,6 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         /// </summary>
         public bool PauseOnCutscene { get; private set; }
 
-        public MultipleNodeTrackSpinner(EntityData data, Vector2 offset) {
-            PauseOnCutscene = data.Bool("pauseOnCutscene");
-            PauseFlag = data.Attr("pauseFlag");
-            HasPauseFlag = !PauseFlag.Equals("");
-
-            playerDead = false;
-            Moving = true;
-            Collider = new ColliderList(new Collider[]
-            {
-                new Circle(6f, 0f, 0f),
-            });
-            Add(new PlayerCollider(new Action<Player>(OnPlayer)));
-            Path = new Vector2[data.Nodes.GetLength(0) + 1];
-            Path[0] = data.Position + offset;
-            for (int i = 0; i < data.Nodes.GetLength(0); i++) {
-                Path[i + 1] = data.Nodes[i] + offset;
-            }
-
-            MoveTime = data.Float("moveTime", 0.4f);
-            PauseTime = data.Float("pauseTime", 0.2f);
-            Angle = (Path[1] - Path[0]).Angle();
-            Percent = 0f;
-            CurrentStart = 0;
-            UpdatePosition();
-        }
         public virtual void OnPlayer(Player player) {
 
             playerDead = player.Die((player.Position - Position).SafeNormalize()) != null;
