@@ -15,3 +15,8 @@ entities.AdventureHelper/OutroCar.attributes.description.hasRoadAndBarriers=Dete
 
 # Dash Push Block
 entities.AdventureHelper/DashPushBlock.placements.name.dash_push_block=Dash Push Block
+
+# Grouped Falling Block
+entities.AdventureHelper/GroupedFallingBlock.placements.name.grouped_falling_block=Falling Block (Grouped)
+entities.AdventureHelper/GroupedFallingBlock.attributes.description.tiletype=Tile ID to use for the block.
+entities.AdventureHelper/GroupedFallingBlock.attributes.description.climbFall=If set to true, the block will fall while climbing it. Otherwise it only falls when standing on it. Can be set for each piece individually.)
