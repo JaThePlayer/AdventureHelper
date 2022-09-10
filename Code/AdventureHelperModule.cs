@@ -4,7 +4,7 @@ using Monocle;
 using System;
 
 namespace Celeste.Mod.AdventureHelper {
-    internal class AdventureHelperModule : EverestModule {
+    public class AdventureHelperModule : EverestModule {
 
         public static AdventureHelperModule Instance;
 
