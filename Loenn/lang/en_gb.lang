@@ -20,3 +20,10 @@ entities.AdventureHelper/DashPushBlock.placements.name.dash_push_block=Dash Push
 entities.AdventureHelper/GroupedFallingBlock.placements.name.grouped_falling_block=Falling Block (Grouped)
 entities.AdventureHelper/GroupedFallingBlock.attributes.description.tiletype=Tile ID to use for the block.
 entities.AdventureHelper/GroupedFallingBlock.attributes.description.climbFall=If set to true, the block will fall while climbing it. Otherwise it only falls when standing on it. Can be set for each piece individually.)
+
+# Multiple Node Blade Track Spinner
+entities.AdventureHelper/BladeTrackSpinnerMultinode.placements.name.multiple_node_blade_track_spinner=Blade (Track Multi-Node)
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the spinner to get from node to node.
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the spinner waits at each node.
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the spinner will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the spinner will pause in place during cutscenes.
