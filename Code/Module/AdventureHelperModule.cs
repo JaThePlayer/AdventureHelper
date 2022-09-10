@@ -33,34 +33,9 @@ namespace Celeste.Mod.AdventureHelper {
         }
 
         private bool LevelOnLoadEntity(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
-            if (entityData.Name.StartsWith("AdventureHelper")) {
-                switch (entityData.Name) {
-                    case "AdventureHelper/BladeTrackSpinnerMultinode":
-                        level.Add(new BladeTrackSpinnerMultinode(entityData, offset));
-                        return true;
-                    case "AdventureHelper/DustTrackSpinnerMultinode":
-                        level.Add(new DustTrackSpinnerMultinode(entityData, offset));
-                        return true;
-                    case "AdventureHelper/StarTrackSpinnerMultinode":
-                        level.Add(new StarTrackSpinnerMultinode(entityData, offset));
-                        return true;
-                    case "AdventureHelper/ZipMoverNoReturn":
-                        level.Add(new ZipMoverNoReturn(entityData, offset));
-                        return true;
-                    case "AdventureHelper/LinkedZipMover":
-                        level.Add(new LinkedZipMover(entityData, offset));
-                        return true;
-                    case "AdventureHelper/LinkedZipMoverNoReturn":
-                        level.Add(new LinkedZipMoverNoReturn(entityData, offset));
-                        return true;
-                    case "AdventureHelper/CustomCrystalHeart":
-                        if (!level.Session.HeartGem) {
-                            level.Add(new CustomCrystalHeart(entityData, offset));
-                        }
-                        return true;
-                    default:
-                        return false;
-                }
+            if (entityData.Name == "AdventureHelper/CustomCrystalHeart" && !level.Session.HeartGem) {
+                level.Add(new CustomCrystalHeart(entityData, offset));
+                return true;
             }
             return false;
         }

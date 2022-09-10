@@ -1,47 +1,49 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Celeste.Mod.Entities;
+using Microsoft.Xna.Framework;
 using Monocle;
 
 namespace Celeste.Mod.AdventureHelper.Entities {
-    class StarTrackSpinnerMultinode : MultipleNodeTrackSpinner {
+    [CustomEntity("AdventureHelper/MultipleNodeTrackSpinner")]
+    public class StarTrackSpinnerMultinode : MultipleNodeTrackSpinner {
         public Sprite Sprite;
         private bool hasStarted;
         private bool trail;
         private int colorID;
 
         public StarTrackSpinnerMultinode(EntityData data, Vector2 offset) : base(data, offset) {
-            base.Add(this.Sprite = GFX.SpriteBank.Create("moonBlade"));
-            this.colorID = Calc.Random.Choose(0, 1, 2);
-            this.Sprite.Play("idle" + this.colorID, false, false);
-            base.Depth = -50;
-            base.Add(new MirrorReflection());
+            Add(Sprite = GFX.SpriteBank.Create("moonBlade"));
+            colorID = Calc.Random.Choose(0, 1, 2);
+            Sprite.Play("idle" + colorID);
+            Depth = -50;
+            Add(new MirrorReflection());
         }
         public override void OnTrackStart() {
-            this.colorID++;
-            this.colorID %= 3;
-            this.Sprite.Play("spin" + this.colorID % 3, false, false);
-            if (this.hasStarted) {
-                Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", this.Position);
+            colorID++;
+            colorID %= 3;
+            Sprite.Play("spin" + colorID % 3);
+            if (hasStarted) {
+                Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", Position);
             }
-            this.hasStarted = true;
-            this.trail = true;
+            hasStarted = true;
+            trail = true;
 
         }
         public override void OnTrackEnd() {
-            this.trail = false;
+            trail = false;
         }
         public override void Update() {
             bool reachedDestination = PauseTimer > 0f;
-            bool wasPaused = !base.Moving;
+            bool wasPaused = !Moving;
             base.Update();
-            if (base.Moving && this.trail && base.Scene.OnInterval(0.03f)) {
-                base.SceneAs<Level>().ParticlesBG.Emit(StarTrackSpinner.P_Trail[this.colorID], 1, this.Position, Vector2.One * 3f);
+            if (Moving && trail && Scene.OnInterval(0.03f)) {
+                SceneAs<Level>().ParticlesBG.Emit(StarTrackSpinner.P_Trail[colorID], 1, Position, Vector2.One * 3f);
             }
-            if (wasPaused && base.Moving && !reachedDestination) {
-                if (this.hasStarted) {
-                    this.colorID++;
-                    this.colorID %= 3;
-                    this.Sprite.Play("spin" + this.colorID % 3, false, false);
-                    Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", this.Position);
+            if (wasPaused && Moving && !reachedDestination) {
+                if (hasStarted) {
+                    colorID++;
+                    colorID %= 3;
+                    Sprite.Play("spin" + colorID % 3);
+                    Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", Position);
                 }
             }
         }

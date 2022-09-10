@@ -3,9 +3,8 @@ using Microsoft.Xna.Framework;
 using Monocle;
 
 namespace Celeste.Mod.AdventureHelper.Entities {
-
     [CustomEntity("AdventureHelper/DashPushBlock")]
-    class DashPushBlock : Solid {
+    public class DashPushBlock : Solid {
         private const float _flashTime = 0.5f;
         protected MTexture[,] _body;
         protected MTexture[,] _flash;
@@ -20,8 +19,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    _body[i, j] = GFX.Game["objects/AdventureHelper/dashpushblock/Body"].GetSubtexture(i * 8, j * 8, 8, 8, null);
-                    _flash[i, j] = GFX.Game["objects/AdventureHelper/dashpushblock/Cracks"].GetSubtexture(i * 8, j * 8, 8, 8, null);
+                    _body[i, j] = GFX.Game["objects/AdventureHelper/dashpushblock/Body"].GetSubtexture(i * 8, j * 8, 8, 8);
+                    _flash[i, j] = GFX.Game["objects/AdventureHelper/dashpushblock/Cracks"].GetSubtexture(i * 8, j * 8, 8, 8);
                 }
             }
 

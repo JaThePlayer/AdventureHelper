@@ -10,19 +10,15 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         protected Color color;
         protected string spriteId;
 
-        protected DynData<HeartGem> baseData;
+        protected DynamicData baseData;
 
         public CustomCrystalHeart(EntityData data, Vector2 offset)
             : base(data, offset) {
-            baseData = new DynData<HeartGem>(this);
+            baseData = new DynamicData(typeof(HeartGem), this);
 
             entityID = new EntityID(data.Level.Name, data.ID);
             color = Calc.HexToColor(data.Attr("color", "00a81f"));
             spriteId = data.Attr("path", "");
-        }
-
-        public override void Added(Scene scene) {
-            base.Added(scene);
         }
 
         public override void Awake(Scene scene) {
@@ -39,22 +35,22 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 switch (spriteId) {
                     case "heartgem0":
                         color = Color.Aqua;
-                        baseData["shineParticle"] = P_BlueShine;
+                        baseData.Set("shineParticle", P_BlueShine);
                         break;
                     case "heartgem1":
                         color = Color.Red;
-                        baseData["shineParticle"] = P_RedShine;
+                        baseData.Set("shineParticle", P_RedShine);
                         break;
                     case "heartgem2":
                         color = Color.Gold;
-                        baseData["shineParticle"] = P_GoldShine;
+                        baseData.Set("shineParticle", P_GoldShine);
                         break;
                     case "heartgem3":
                         color = Calc.HexToColor("dad8cc");
-                        baseData["shineParticle"] = P_FakeShine;
+                        baseData.Set("shineParticle", P_FakeShine);
                         break;
                     default:
-                        baseData["shineParticle"] = new ParticleType(P_BlueShine) { Color = color };
+                        baseData.Set("shineParticle", new ParticleType(P_BlueShine) { Color = color });
                         break;
                 }
             } else {
@@ -65,7 +61,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 else
                     sprite.Color = color;
 
-                baseData["shineParticle"] = new ParticleType(P_BlueShine) { Color = color };
+                baseData.Set("shineParticle", new ParticleType(P_BlueShine) { Color = color });
             }
 
 
@@ -85,7 +81,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             ScaleWiggler = Wiggler.Create(0.5f, 4f, f => sprite.Scale = Vector2.One * (1f + f * 0.25f));
             Add(ScaleWiggler);
 
-            baseData["sprite"] = sprite;
+            baseData.Set("sprite", sprite);
             Add(sprite);
             if (spriteOutline != null)
                 Add(spriteOutline);

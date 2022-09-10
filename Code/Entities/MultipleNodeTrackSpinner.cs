@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.AdventureHelper.Entities {
-    class MultipleNodeTrackSpinner : Entity {
+    public class MultipleNodeTrackSpinner : Entity {
         public float PauseTimer;
 
         /// <summary>
@@ -63,59 +63,59 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         public bool PauseOnCutscene { get; private set; }
 
         public MultipleNodeTrackSpinner(EntityData data, Vector2 offset) {
-            this.PauseOnCutscene = data.Bool("pauseOnCutscene");
-            this.PauseFlag = data.Attr("pauseFlag");
-            this.HasPauseFlag = !PauseFlag.Equals("");
+            PauseOnCutscene = data.Bool("pauseOnCutscene");
+            PauseFlag = data.Attr("pauseFlag");
+            HasPauseFlag = !PauseFlag.Equals("");
 
-            this.playerDead = false;
-            this.Moving = true;
-            base.Collider = new ColliderList(new Collider[]
+            playerDead = false;
+            Moving = true;
+            Collider = new ColliderList(new Collider[]
             {
                 new Circle(6f, 0f, 0f),
             });
-            base.Add(new PlayerCollider(new Action<Player>(this.OnPlayer), null, null));
-            this.Path = new Vector2[data.Nodes.GetLength(0) + 1];
-            this.Path[0] = data.Position + offset;
+            Add(new PlayerCollider(new Action<Player>(OnPlayer)));
+            Path = new Vector2[data.Nodes.GetLength(0) + 1];
+            Path[0] = data.Position + offset;
             for (int i = 0; i < data.Nodes.GetLength(0); i++) {
                 Path[i + 1] = data.Nodes[i] + offset;
             }
-            this.MoveTime = data.Float("moveTime", 0.4f);
-            this.PauseTime = data.Float("pauseTime", 0.2f);
-            this.Angle = (this.Path[1] - this.Path[0]).Angle();
-            this.Percent = 0f;
-            this.CurrentStart = 0;
-            this.UpdatePosition();
+            MoveTime = data.Float("moveTime", 0.4f);
+            PauseTime = data.Float("pauseTime", 0.2f);
+            Angle = (Path[1] - Path[0]).Angle();
+            Percent = 0f;
+            CurrentStart = 0;
+            UpdatePosition();
         }
         public virtual void OnPlayer(Player player) {
 
-            playerDead = player.Die((player.Position - this.Position).SafeNormalize(), false, true) != null;
+            playerDead = player.Die((player.Position - Position).SafeNormalize()) != null;
             if (playerDead) {
-                this.Moving = false;
+                Moving = false;
             }
         }
 
         public override void Added(Scene scene) {
             base.Added(scene);
-            if (this.HasPauseFlag) {
+            if (HasPauseFlag) {
                 SceneAs<Level>().Session.SetFlag(PauseFlag, false);
             }
         }
         public override void Awake(Scene scene) {
             base.Awake(scene);
-            this.OnTrackStart();
+            OnTrackStart();
         }
 
         public void UpdatePosition() {
-            var start = Path[this.CurrentStart];
-            var end = Path[(CurrentStart + 1) % this.Path.Length];
-            this.Position = Vector2.Lerp(start, end, Ease.SineInOut(this.Percent));
+            Vector2 start = Path[CurrentStart];
+            Vector2 end = Path[(CurrentStart + 1) % Path.Length];
+            Position = Vector2.Lerp(start, end, Ease.SineInOut(Percent));
         }
 
         public override void Update() {
             base.Update();
 
             bool cutsceneRunning = false;
-            if (this.PauseOnCutscene) {
+            if (PauseOnCutscene) {
                 List<CutsceneEntity> cutScene = SceneAs<Level>().Entities.FindAll<CutsceneEntity>();
                 foreach (CutsceneEntity element in cutScene) {
                     if (element.Running) { cutsceneRunning = true; }
@@ -123,31 +123,31 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             }
 
             bool pauseFlag = false;
-            if (this.HasPauseFlag) {
+            if (HasPauseFlag) {
                 pauseFlag = SceneAs<Level>().Session.GetFlag(PauseFlag);
             }
 
-            if (!cutsceneRunning && !pauseFlag) { this.Moving = true; } else {
-                this.Moving = false;
+            if (!cutsceneRunning && !pauseFlag) { Moving = true; } else {
+                Moving = false;
             }
 
-            if (this.Moving && !playerDead) {
-                bool stillPaused = this.PauseTimer > 0f;
+            if (Moving && !playerDead) {
+                bool stillPaused = PauseTimer > 0f;
                 if (stillPaused) {
-                    this.PauseTimer -= Engine.DeltaTime;
-                    bool isUnpaused = this.PauseTimer <= 0f;
+                    PauseTimer -= Engine.DeltaTime;
+                    bool isUnpaused = PauseTimer <= 0f;
                     if (isUnpaused) {
-                        this.OnTrackStart();
+                        OnTrackStart();
                     }
                 } else {
-                    this.Percent = Calc.Approach(this.Percent, 1f, Engine.DeltaTime / MoveTime);
-                    this.UpdatePosition();
-                    bool reachedDestination = this.Percent >= 1f;
+                    Percent = Calc.Approach(Percent, 1f, Engine.DeltaTime / MoveTime);
+                    UpdatePosition();
+                    bool reachedDestination = Percent >= 1f;
                     if (reachedDestination) {
-                        this.CurrentStart = (CurrentStart + 1) % this.Path.Length;
-                        this.PauseTimer = PauseTime;
-                        this.Percent = 0f;
-                        this.OnTrackEnd();
+                        CurrentStart = (CurrentStart + 1) % Path.Length;
+                        PauseTimer = PauseTime;
+                        Percent = 0f;
+                        OnTrackEnd();
                     }
                 }
             }
@@ -157,7 +157,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         }
 
         public virtual void OnTrackEnd() {
-            this.Angle = (this.Path[(CurrentStart + 1) % this.Path.Length] - this.Path[CurrentStart]).Angle();
+            Angle = (Path[(CurrentStart + 1) % Path.Length] - Path[CurrentStart]).Angle();
         }
     }
 }

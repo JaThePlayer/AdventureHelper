@@ -25,9 +25,7 @@ namespace Celeste.Mod.AdventureHelper {
 
         private static void CrushBlockCollideCheckGroupedFallingBlock(CrushBlock self, Vector2 amount) {
             GroupedFallingBlock fallingBlock = self.CollideFirst<GroupedFallingBlock>(self.Position + amount);
-            if (fallingBlock != null) {
-                fallingBlock.Trigger();
-            }
+            fallingBlock?.Trigger();
         }
     }
 }
