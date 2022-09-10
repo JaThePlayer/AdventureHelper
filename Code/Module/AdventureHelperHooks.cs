@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.AdventureHelper {
-    class AdventureHelperHooks {
+    internal class AdventureHelperHooks {
         public static void Load() {
             On.Celeste.CrushBlock.MoveHCheck += OnCrushBlockMoveHCheck;
             On.Celeste.CrushBlock.MoveVCheck += OnCrushBlockMoveVCheck;

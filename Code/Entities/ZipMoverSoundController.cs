@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Celeste.Mod.AdventureHelper.Entities {
     public static class ZipMoverSoundController {
-        public static Dictionary<string, SoundSource> activeSounds = new Dictionary<string, SoundSource>();
+        public static Dictionary<string, SoundSource> activeSounds = new();
 
         public static void PlaySound(string colorCode, SoundType type, Solid block) {
             string name = $"{colorCode}-{type}";
@@ -12,8 +11,9 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 Player player = block.Scene.Tracker.GetEntity<Player>();
                 if (player != null) {
                     Vector2 position = player.Position;
-                    SoundSource source = new SoundSource();
-                    source.Position = position;
+                    SoundSource source = new() {
+                        Position = position
+                    };
                     activeSounds.Add(name, source);
                     source.Play("event:/game/01_forsaken_city/zip_mover");
                 }

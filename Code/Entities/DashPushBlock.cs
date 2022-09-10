@@ -6,6 +6,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     [CustomEntity("AdventureHelper/DashPushBlock")]
     public class DashPushBlock : Solid {
         private const float _flashTime = 0.5f;
+
         protected MTexture[,] _body;
         protected MTexture[,] _flash;
         protected float _flashPercent = 0.0f;
@@ -52,14 +53,15 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             while (textureX < Width / 8f) {
                 int textureY = 0;
                 while (textureY < Height / 8f) {
-                    int tileX = (textureX == 0) ? 0 : ((textureX == Width / 8f - 1f) ? 2 : 1);
-                    int tileY = (textureY == 0) ? 0 : ((textureY == Height / 8f - 1f) ? 2 : 1);
+                    int tileX = (textureX == 0) ? 0 : ((textureX == (Width / 8f) - 1f) ? 2 : 1);
+                    int tileY = (textureY == 0) ? 0 : ((textureY == (Height / 8f) - 1f) ? 2 : 1);
 
                     _body[tileX, tileY].Draw(new Vector2(X + (textureX * 8), Y + (textureY * 8)));
                     //_flash[ tileX, tileY ].Draw( new Vector2( X + ( textureX * 8 ), Y + ( textureY * 8 ) ), new Vector2( Width, Height ), flashColor );
 
                     textureY++;
                 }
+
                 textureX++;
             }
         }

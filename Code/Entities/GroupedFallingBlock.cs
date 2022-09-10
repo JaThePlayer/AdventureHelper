@@ -9,11 +9,6 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     [Tracked]
     [CustomEntity("AdventureHelper/GroupedFallingBlock")]
     public class GroupedFallingBlock : Solid {
-        private TileGrid _tiles;
-        private readonly char _tileType;
-        private GroupedFallingBlock _master;
-        private bool _climbFall;
-
         public List<GroupedFallingBlock> Group;
         public List<JumpThru> Jumpthrus;
         public Point GroupBoundsMin;
@@ -21,10 +16,15 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         public bool Triggered;
         public float FallDelay;
 
+        private readonly char _tileType;
+        private readonly bool _climbFall;
+        private TileGrid _tiles;
+        private GroupedFallingBlock _master;
+
         public bool HasStartedFalling { get; private set; }
         public bool HasGroup { get; private set; }
         public bool MasterOfGroup { get; private set; }
-        public Vector2 GroupPosition => new Vector2(GroupBoundsMin.X, GroupBoundsMin.Y);
+        public Vector2 GroupPosition => new(GroupBoundsMin.X, GroupBoundsMin.Y);
 
         public GroupedFallingBlock(Vector2 position, float width, float height, char tileType, bool climbFall)
         : base(position, width, height, safe: true) {
@@ -45,22 +45,23 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 MasterOfGroup = true;
                 Group = new List<GroupedFallingBlock>();
                 Jumpthrus = new List<JumpThru>();
-                GroupBoundsMin = new Point((int) X, (int) Y);
-                GroupBoundsMax = new Point((int) Right, (int) Bottom);
+                GroupBoundsMin = new Point((int)X, (int)Y);
+                GroupBoundsMax = new Point((int)Right, (int)Bottom);
                 AddToGroupAndFindChildren(this);
-                Rectangle rectangle = new Rectangle(GroupBoundsMin.X / 8, GroupBoundsMin.Y / 8, (GroupBoundsMax.X - GroupBoundsMin.X) / 8 + 1, (GroupBoundsMax.Y - GroupBoundsMin.Y) / 8 + 1);
-                VirtualMap<char> virtualMap = new VirtualMap<char>(rectangle.Width, rectangle.Height, '0');
+                Rectangle rectangle = new(GroupBoundsMin.X / 8, GroupBoundsMin.Y / 8, ((GroupBoundsMax.X - GroupBoundsMin.X) / 8) + 1, ((GroupBoundsMax.Y - GroupBoundsMin.Y) / 8) + 1);
+                VirtualMap<char> virtualMap = new(rectangle.Width, rectangle.Height, '0');
                 foreach (GroupedFallingBlock item in Group) {
-                    int num = (int) (item.X / 8f) - rectangle.X;
-                    int num2 = (int) (item.Y / 8f) - rectangle.Y;
-                    int num3 = (int) (item.Width / 8f);
-                    int num4 = (int) (item.Height / 8f);
+                    int num = (int)(item.X / 8f) - rectangle.X;
+                    int num2 = (int)(item.Y / 8f) - rectangle.Y;
+                    int num3 = (int)(item.Width / 8f);
+                    int num4 = (int)(item.Height / 8f);
                     for (int i = num; i < num + num3; i++) {
                         for (int j = num2; j < num2 + num4; j++) {
                             virtualMap[i, j] = _tileType;
                         }
                     }
                 }
+
                 _tiles = GFX.FGAutotiler.GenerateMap(virtualMap, new Autotiler.Behaviour {
                     EdgesExtend = false,
                     EdgesIgnoreOutOfLevel = false,
@@ -69,6 +70,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 _tiles.Position = new Vector2(GroupBoundsMin.X - X, GroupBoundsMin.Y - Y);
                 Add(_tiles);
             }
+
             if (MasterOfGroup) {
                 Add(new Coroutine(Sequence()));
                 Group.Sort((block, otherBlock) => { return otherBlock.Bottom.CompareTo(block.Bottom); });
@@ -85,35 +87,40 @@ namespace Celeste.Mod.AdventureHelper.Entities {
 
         private void AddToGroupAndFindChildren(GroupedFallingBlock from) {
             if (from.X < GroupBoundsMin.X) {
-                GroupBoundsMin.X = (int) from.X;
+                GroupBoundsMin.X = (int)from.X;
             }
+
             if (from.Y < GroupBoundsMin.Y) {
-                GroupBoundsMin.Y = (int) from.Y;
+                GroupBoundsMin.Y = (int)from.Y;
             }
             if (from.Right > GroupBoundsMax.X) {
-                GroupBoundsMax.X = (int) from.Right;
+                GroupBoundsMax.X = (int)from.Right;
             }
             if (from.Bottom > GroupBoundsMax.Y) {
-                GroupBoundsMax.Y = (int) from.Bottom;
+                GroupBoundsMax.Y = (int)from.Bottom;
             }
+
             from.HasGroup = true;
             Group.Add(from);
             if (from != this) {
                 from._master = this;
             }
-            foreach (JumpThru item in Scene.CollideAll<JumpThru>(new Rectangle((int) from.X - 1, (int) from.Y, (int) from.Width + 2, (int) from.Height))) {
+
+            foreach (JumpThru item in Scene.CollideAll<JumpThru>(new Rectangle((int)from.X - 1, (int)from.Y, (int)from.Width + 2, (int)from.Height))) {
                 if (!Jumpthrus.Contains(item)) {
                     AddJumpThru(item);
                 }
             }
-            foreach (JumpThru item2 in Scene.CollideAll<JumpThru>(new Rectangle((int) from.X, (int) from.Y - 1, (int) from.Width, (int) from.Height + 2))) {
+
+            foreach (JumpThru item2 in Scene.CollideAll<JumpThru>(new Rectangle((int)from.X, (int)from.Y - 1, (int)from.Width, (int)from.Height + 2))) {
                 if (!Jumpthrus.Contains(item2)) {
                     AddJumpThru(item2);
                 }
             }
+
             foreach (GroupedFallingBlock entity in Scene.Tracker.GetEntities<GroupedFallingBlock>()) {
-                if (!entity.HasGroup && entity._tileType == _tileType && (Scene.CollideCheck(new Rectangle((int) from.X - 1, (int) from.Y, (int) from.Width + 2, (int) from.Height), entity) || 
-                    Scene.CollideCheck(new Rectangle((int) from.X, (int) from.Y - 1, (int) from.Width, (int) from.Height + 2), entity))) {
+                if (!entity.HasGroup && entity._tileType == _tileType && (Scene.CollideCheck(new Rectangle((int)from.X - 1, (int)from.Y, (int)from.Width + 2, (int)from.Height), entity) ||
+                    Scene.CollideCheck(new Rectangle((int)from.X, (int)from.Y - 1, (int)from.Width, (int)from.Height + 2), entity))) {
                     AddToGroupAndFindChildren(entity);
                 }
             }
@@ -122,7 +129,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         private void AddJumpThru(JumpThru jp) {
             Jumpthrus.Add(jp);
             foreach (GroupedFallingBlock entity in Scene.Tracker.GetEntities<GroupedFallingBlock>()) {
-                if (!entity.HasGroup && entity._tileType == _tileType && Scene.CollideCheck(new Rectangle((int) jp.X - 1, (int) jp.Y, (int) jp.Width + 2, (int) jp.Height), entity)) {
+                if (!entity.HasGroup && entity._tileType == _tileType && Scene.CollideCheck(new Rectangle((int)jp.X - 1, (int)jp.Y, (int)jp.Width + 2, (int)jp.Height), entity)) {
                     AddToGroupAndFindChildren(entity);
                 }
             }
@@ -152,10 +159,12 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             while (!Triggered && !PlayerFallCheck()) {
                 yield return null;
             }
+
             while (FallDelay > 0f) {
                 FallDelay -= Engine.DeltaTime;
                 yield return null;
             }
+
             HasStartedFalling = true;
             while (true) {
                 ShakeSfx();
@@ -167,15 +176,18 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     yield return null;
                     timer -= Engine.DeltaTime;
                 }
+
                 StopShaking();
                 foreach (GroupedFallingBlock block in Group) {
                     for (int i = 2; i < Width; i += 4) {
                         if (block.CollideCheck<Solid>(block.TopLeft + new Vector2(i, -2f))) {
-                            SceneAs<Level>().Particles.Emit(FallingBlock.P_FallDustA, 2, new Vector2(block.X + i, block.Y), Vector2.One * 4f, (float) Math.PI / 2f);
+                            SceneAs<Level>().Particles.Emit(FallingBlock.P_FallDustA, 2, new Vector2(block.X + i, block.Y), Vector2.One * 4f, (float)Math.PI / 2f);
                         }
+
                         SceneAs<Level>().Particles.Emit(FallingBlock.P_FallDustB, 2, new Vector2(block.X + i, block.Y), Vector2.One * 4f);
                     }
                 }
+
                 float speed = 0f;
                 float maxSpeed = 160f;
                 while (true) {
@@ -183,47 +195,57 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     speed = Calc.Approach(speed, maxSpeed, 500f * Engine.DeltaTime);
 
                     bool breakCollideCheck = false;
-                    List<GroupedFallingBlock> hitters = new List<GroupedFallingBlock>();
+                    List<GroupedFallingBlock> hitters = new();
                     foreach (GroupedFallingBlock block in Group) {
                         if (block.MoveVCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true)) {
                             breakCollideCheck = true;
                             hitters.Add(block);
                         }
                     }
+
                     foreach (JumpThru jp in Jumpthrus) {
                         jp.MoveV(speed * Engine.DeltaTime);
                     }
+
                     if (breakCollideCheck) {
                         foreach (GroupedFallingBlock block in Group) {
                             if (!hitters.Contains(block)) {
                                 block.MoveV(-speed * Engine.DeltaTime);
                             }
                         }
+
                         foreach (JumpThru jp in Jumpthrus) {
                             jp.MoveV(-speed * Engine.DeltaTime);
                         }
+
                         break;
                     }
-                    if (GroupBoundsMin.Y > (float) (level.Bounds.Bottom + 16) || (GroupBoundsMin.Y > (float) (level.Bounds.Bottom - 1) && CollideCheck<Solid>(GroupPosition + new Vector2(0f, 1f)))) {
-                        Collidable = (Visible = false);
+
+                    if (GroupBoundsMin.Y > (float)(level.Bounds.Bottom + 16) || (GroupBoundsMin.Y > (float)(level.Bounds.Bottom - 1) && CollideCheck<Solid>(GroupPosition + new Vector2(0f, 1f)))) {
+                        Collidable = Visible = false;
                         yield return 0.2f;
                         if (level.Session.MapData.CanTransitionTo(level, new Vector2(Center.X, Bottom + 12f))) {
                             yield return 0.2f;
                             SceneAs<Level>().Shake();
                             Input.Rumble(RumbleStrength.Strong, RumbleLength.Medium);
                         }
+
                         foreach (GroupedFallingBlock block in Group) {
                             block.RemoveSelf();
                             block.DestroyStaticMovers();
                         }
+
                         foreach (JumpThru jp in Jumpthrus) {
                             jp.RemoveSelf();
                             jp.DestroyStaticMovers();
                         }
+
                         yield break;
                     }
+
                     yield return null;
                 }
+
                 ImpactSfx();
                 Input.Rumble(RumbleStrength.Strong, RumbleLength.Medium);
                 SceneAs<Level>().DirectionalShake(Vector2.UnitY, 0.3f);
@@ -239,8 +261,10 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                         break;
                     }
                 }
-                if (collideSolidTiles)
+
+                if (collideSolidTiles) {
                     break;
+                }
 
                 bool collidePlatforms;
                 do {
@@ -250,19 +274,25 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                             if (platform is GroupedFallingBlock && Group.Contains(platform as GroupedFallingBlock)) {
                                 continue;
                             }
+
                             if (block.CollideCheck(platform, block.Position + new Vector2(0f, 1f))) {
                                 collidePlatforms = true;
                                 break;
                             }
                         }
-                        if (collidePlatforms)
+
+                        if (collidePlatforms) {
                             break;
+                        }
                     }
-                    if (collidePlatforms)
+
+                    if (collidePlatforms) {
                         yield return 0.1f;
+                    }
                 }
                 while (collidePlatforms);
             }
+
             Safe = true;
         }
 
@@ -278,20 +308,24 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     }
                 }
             }
+
             foreach (JumpThru jp in Jumpthrus) {
                 if (jp.HasPlayerRider()) {
                     return true;
                 }
             }
+
             return false;
         }
         private bool PlayerWaitCheck() {
             if (Triggered) {
                 return true;
             }
+
             if (PlayerFallCheck()) {
                 return true;
             }
+
             if (_climbFall) {
                 foreach (GroupedFallingBlock block in Group) {
                     if (!block.CollideCheck<Player>(Position - Vector2.UnitX)) {
@@ -303,6 +337,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     }
                 }
             }
+
             return false;
         }
 
@@ -310,11 +345,13 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             foreach (GroupedFallingBlock block in Group) {
                 for (int i = 2; i <= block.Width; i += 4) {
                     foreach (Solid solid in Scene.Tracker.GetEntities<Solid>()) {
-                        if (solid is GroupedFallingBlock)
+                        if (solid is GroupedFallingBlock) {
                             continue;
+                        }
+
                         if (block.CollideCheck(solid, block.Position + new Vector2(i, 3f))) {
-                            SceneAs<Level>().ParticlesFG.Emit(FallingBlock.P_FallDustA, 1, new Vector2(block.X + i, block.Bottom), Vector2.One * 4f, (float) -Math.PI / 2f);
-                            float direction = (!(i < block.Width / 2f)) ? 0f : ((float) Math.PI);
+                            SceneAs<Level>().ParticlesFG.Emit(FallingBlock.P_FallDustA, 1, new Vector2(block.X + i, block.Bottom), Vector2.One * 4f, (float)-Math.PI / 2f);
+                            float direction = (!(i < block.Width / 2f)) ? 0f : ((float)Math.PI);
                             SceneAs<Level>().ParticlesFG.Emit(FallingBlock.P_LandDust, 1, new Vector2(block.X + i, block.Bottom), Vector2.One * 4f, direction);
                         }
                     }
@@ -360,6 +397,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 sumX += distX * blockArea;
                 sumY += distY * blockArea;
             }
+
             return Center + new Vector2(sumX / area, sumY / area);
         }
 
@@ -376,7 +414,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     maxY = block.Bottom;
                 }
             }
-            return new Vector2(CenterX + sumX / area, maxY);
+
+            return new Vector2(CenterX + (sumX / area), maxY);
         }
     }
 }

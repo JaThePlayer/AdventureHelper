@@ -6,14 +6,14 @@ using MonoMod.Utils;
 namespace Celeste.Mod.AdventureHelper.Entities {
     [CustomEntity("AdventureHelper/OutroCar")]
     public class OutroCar : IntroCar {
-        private DynamicData origData;
+        private readonly DynamicData origData;
 
         public OutroCar(EntityData data, Vector2 offset) : base(data, offset) {
             origData = new DynamicData(typeof(IntroCar), this);
             Image bodySprite = origData.Get<Image>("bodySprite");
             bodySprite.FlipX = true;
-            Hitbox hitbox = new Hitbox(25f, 4f, -7f, -17f);
-            Hitbox hitbox2 = new Hitbox(19f, 4f, -24f, -11f);
+            Hitbox hitbox = new(25f, 4f, -7f, -17f);
+            Hitbox hitbox2 = new(19f, 4f, -24f, -11f);
             Collider = new ColliderList(hitbox, hitbox2);
         }
 

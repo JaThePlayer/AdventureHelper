@@ -6,6 +6,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     [CustomEntity("AdventureHelper/MultipleNodeTrackSpinner")]
     public class StarTrackSpinnerMultinode : MultipleNodeTrackSpinner {
         public Sprite Sprite;
+
         private bool hasStarted;
         private bool trail;
         private int colorID;
@@ -20,10 +21,11 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         public override void OnTrackStart() {
             colorID++;
             colorID %= 3;
-            Sprite.Play("spin" + colorID % 3);
+            Sprite.Play("spin" + (colorID % 3));
             if (hasStarted) {
                 Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", Position);
             }
+
             hasStarted = true;
             trail = true;
 
@@ -38,15 +40,15 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             if (Moving && trail && Scene.OnInterval(0.03f)) {
                 SceneAs<Level>().ParticlesBG.Emit(StarTrackSpinner.P_Trail[colorID], 1, Position, Vector2.One * 3f);
             }
+
             if (wasPaused && Moving && !reachedDestination) {
                 if (hasStarted) {
                     colorID++;
                     colorID %= 3;
-                    Sprite.Play("spin" + colorID % 3);
+                    Sprite.Play("spin" + (colorID % 3));
                     Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", Position);
                 }
             }
         }
-
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.AdventureHelper.Entities {
     [CustomEntity("AdventureHelper/DustTrackSpinnerMultinode")]
     public class DustTrackSpinnerMultinode : MultipleNodeTrackSpinner {
-        private DustGraphic dusty;
+        private readonly DustGraphic dusty;
         private Vector2 previousVector;
         private Vector2 nextVector;
 
@@ -15,7 +15,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             Add(dusty = new DustGraphic(true, false, false));
             Vector2 start = Path[CurrentStart];
             Vector2 next = Path[(CurrentStart + 1) % Path.Length];
-            dusty.EyeDirection = (dusty.EyeTargetDirection = (next - start).SafeNormalize());
+            dusty.EyeDirection = dusty.EyeTargetDirection = (next - start).SafeNormalize();
             dusty.OnEstablish = new Action(Establish);
             Depth = -50;
         }
@@ -25,20 +25,22 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             Vector2 previous = Path[(CurrentStart - 1 + Path.Length) % Path.Length];
             nextVector = (next - current).SafeNormalize();
             previousVector = (current - previous).SafeNormalize();
-            bool flag = Scene.CollideCheck<Solid>(new Rectangle((int) (X + nextVector.X * 4f) - 2, (int) (Y + nextVector.Y * 4f) - 2, 4, 4));
+            bool flag = Scene.CollideCheck<Solid>(new Rectangle((int)(X + (nextVector.X * 4f)) - 2, (int)(Y + (nextVector.Y * 4f)) - 2, 4, 4));
             bool flag2 = !flag;
             if (flag2) {
                 nextVector = -nextVector;
-                flag = Scene.CollideCheck<Solid>(new Rectangle((int) (X + nextVector.X * 4f) - 2, (int) (Y + nextVector.Y * 4f) - 2, 4, 4));
+                flag = Scene.CollideCheck<Solid>(new Rectangle((int)(X + (nextVector.X * 4f)) - 2, (int)(Y + (nextVector.Y * 4f)) - 2, 4, 4));
             }
+
             bool flag3 = flag;
             if (flag3) {
                 float num = (current - next).Length();
                 int num2 = 8;
-                while ( num2 < num && flag) {
-                    flag = flag && Scene.CollideCheck<Solid>(new Rectangle((int) (X + nextVector.X * 4f + previousVector.X *  num2) - 2, (int) (Y + nextVector.Y * 4f + previousVector.Y *  num2) - 2, 4, 4));
+                while (num2 < num && flag) {
+                    flag = flag && Scene.CollideCheck<Solid>(new Rectangle((int)(X + (nextVector.X * 4f) + (previousVector.X * num2)) - 2, (int)(Y + (nextVector.Y * 4f) + (previousVector.Y * num2)) - 2, 4, 4));
                     num2 += 8;
                 }
+
                 bool flag4 = flag;
                 if (flag4) {
                     List<DustGraphic.Node> list = null;
@@ -61,12 +63,14 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                             }
                         }
                     }
+
                     bool flag9 = list != null;
                     if (flag9) {
                         foreach (DustGraphic.Node node in list) {
                             node.Enabled = false;
                         }
                     }
+
                     dusty.Position -= nextVector;
                     dusty.EyeDirection = dusty.EyeTargetDirection = Calc.AngleToVector(Calc.AngleLerp(previousVector.Angle(), nextVector.Angle(), 0.3f), 1f);
                 }

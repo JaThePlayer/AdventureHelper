@@ -9,7 +9,6 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         protected EntityID entityID;
         protected Color color;
         protected string spriteId;
-
         protected DynamicData baseData;
 
         public CustomCrystalHeart(EntityData data, Vector2 offset)
@@ -29,8 +28,9 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             if (!string.IsNullOrWhiteSpace(spriteId)) {
                 sprite = GFX.SpriteBank.Create(spriteId);
                 sprite.Play("spin");
-                if (IsGhost)
+                if (IsGhost) {
                     sprite.Color = Color.White * 0.8f;
+                }
 
                 switch (spriteId) {
                     case "heartgem0":
@@ -56,14 +56,10 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             } else {
                 sprite = AdventureHelperModule.SpriteBank.Create("adventureHelper_recolorHeart");
                 spriteOutline = AdventureHelperModule.SpriteBank.Create("adventureHelper_recolorHeartOutline");
-                if (IsGhost)
-                    sprite.Color = Color.Lerp(color, Color.White, 0.8f) * 0.8f;
-                else
-                    sprite.Color = color;
+                sprite.Color = IsGhost ? Color.Lerp(color, Color.White, 0.8f) * 0.8f : color;
 
                 baseData.Set("shineParticle", new ParticleType(P_BlueShine) { Color = color });
             }
-
 
             sprite.OnLoop = anim => {
                 if (Visible && anim == "spin" && baseData.Get<bool>("autoPulse")) {
@@ -72,19 +68,21 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     } else {
                         Audio.Play("event:/game/general/crystalheart_pulse", Position);
                     }
+
                     ScaleWiggler.Start();
                     (Scene as Level).Displacement.AddBurst(Position, 0.35f, 8f, 48f, 0.25f);
                 }
             };
 
             Remove(ScaleWiggler);
-            ScaleWiggler = Wiggler.Create(0.5f, 4f, f => sprite.Scale = Vector2.One * (1f + f * 0.25f));
+            ScaleWiggler = Wiggler.Create(0.5f, 4f, f => sprite.Scale = Vector2.One * (1f + (f * 0.25f)));
             Add(ScaleWiggler);
 
             baseData.Set("sprite", sprite);
             Add(sprite);
-            if (spriteOutline != null)
+            if (spriteOutline != null) {
                 Add(spriteOutline);
+            }
 
             baseData.Get<VertexLight>("light").Color = Color.Lerp(color, Color.White, 0.5f);
         }
@@ -98,9 +96,9 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 if (spriteOutline.CurrentAnimationID != sprite.CurrentAnimationID) {
                     spriteOutline.Play(sprite.CurrentAnimationID);
                 }
+
                 spriteOutline.SetAnimationFrame(sprite.CurrentAnimationFrame);
             }
         }
     }
-
 }

@@ -6,6 +6,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     [CustomEntity("AdventureHelper/BladeTrackSpinnerMultinode")]
     public class BladeTrackSpinnerMultinode : MultipleNodeTrackSpinner {
         public Sprite Sprite;
+
         private bool hasStarted;
 
         public BladeTrackSpinnerMultinode(EntityData data, Vector2 offset) : base(data, offset) {
@@ -20,6 +21,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             if (flag) {
                 Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", Position);
             }
+
             hasStarted = true;
         }
 

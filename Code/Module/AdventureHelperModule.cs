@@ -4,7 +4,7 @@ using Monocle;
 using System;
 
 namespace Celeste.Mod.AdventureHelper {
-    class AdventureHelperModule : EverestModule {
+    internal class AdventureHelperModule : EverestModule {
 
         public static AdventureHelperModule Instance;
 
@@ -14,7 +14,7 @@ namespace Celeste.Mod.AdventureHelper {
 
         public override Type SettingsType => null;
         public override Type SessionType => typeof(AdventureHelperSession);
-        public static AdventureHelperSession Session => (AdventureHelperSession) Instance._Session;
+        public static AdventureHelperSession Session => (AdventureHelperSession)Instance._Session;
 
         public static SpriteBank SpriteBank { get; private set; }
 
@@ -37,6 +37,7 @@ namespace Celeste.Mod.AdventureHelper {
                 level.Add(new CustomCrystalHeart(entityData, offset));
                 return true;
             }
+
             return false;
         }
     }

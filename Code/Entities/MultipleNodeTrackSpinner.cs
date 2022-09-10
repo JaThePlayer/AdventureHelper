@@ -79,6 +79,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             for (int i = 0; i < data.Nodes.GetLength(0); i++) {
                 Path[i + 1] = data.Nodes[i] + offset;
             }
+
             MoveTime = data.Float("moveTime", 0.4f);
             PauseTime = data.Float("pauseTime", 0.2f);
             Angle = (Path[1] - Path[0]).Angle();
@@ -118,7 +119,9 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             if (PauseOnCutscene) {
                 List<CutsceneEntity> cutScene = SceneAs<Level>().Entities.FindAll<CutsceneEntity>();
                 foreach (CutsceneEntity element in cutScene) {
-                    if (element.Running) { cutsceneRunning = true; }
+                    if (element.Running) {
+                        cutsceneRunning = true;
+                    }
                 }
             }
 
@@ -127,9 +130,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                 pauseFlag = SceneAs<Level>().Session.GetFlag(PauseFlag);
             }
 
-            if (!cutsceneRunning && !pauseFlag) { Moving = true; } else {
-                Moving = false;
-            }
+            Moving = !cutsceneRunning && !pauseFlag;
 
             if (Moving && !playerDead) {
                 bool stillPaused = PauseTimer > 0f;
