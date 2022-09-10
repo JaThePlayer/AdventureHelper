@@ -10,14 +10,11 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     public class LinkedZipMover : Solid {
         public const string defaultPath = "objects/zipmover";
 
-        public static ParticleType P_Scrape = ZipMover.P_Scrape;
-        public static ParticleType P_Sparks = ZipMover.P_Sparks;
-
         private float speedMultiplier;
         private MTexture[,] edges;
         private Sprite streetlight;
         private BloomPoint bloom;
-        private LinkedZipMover.ZipMoverPathRenderer pathRenderer;
+        private ZipMoverPathRenderer pathRenderer;
         private List<MTexture> innerCogs;
         private MTexture temp;
         private Vector2 start;
@@ -76,7 +73,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             }
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    edges[i, j] = GFX.Game[path + "/block"].GetSubtexture(i * 8, j * 8, 8, 8, null);
+                    edges[i, j] = GFX.Game[path + "/block"].GetSubtexture(i * 8, j * 8, 8, 8);
                 }
             }
             SurfaceSoundIndex = 7;
@@ -201,13 +198,13 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     bool flag8 = Scene.CollideCheck<Solid>(value + new Vector2(-2f, (num * -2)));
                     if (flag8) {
                         for (int i = num2; i < num3; i += 8) {
-                            SceneAs<Level>().ParticlesFG.Emit(P_Scrape, TopLeft + new Vector2(0f, i + num * 2f), (num == 1) ? -0.7853982f : 0.7853982f);
+                            SceneAs<Level>().ParticlesFG.Emit(ZipMover.P_Scrape, TopLeft + new Vector2(0f, i + num * 2f), (num == 1) ? -0.7853982f : 0.7853982f);
                         }
                     }
                     bool flag9 = Scene.CollideCheck<Solid>(value + new Vector2(Width + 2f, (float) (num * -2)));
                     if (flag9) {
                         for (int j = num2; j < num3; j += 8) {
-                            SceneAs<Level>().ParticlesFG.Emit(P_Scrape, TopRight + new Vector2(-1f, j + num * 2f), (num == 1) ? -2.3561945f : 2.3561945f);
+                            SceneAs<Level>().ParticlesFG.Emit(ZipMover.P_Scrape, TopRight + new Vector2(-1f, j + num * 2f), (num == 1) ? -2.3561945f : 2.3561945f);
                         }
                     }
                 } else {
@@ -234,13 +231,13 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                         bool flag14 = Scene.CollideCheck<Solid>(value2 + new Vector2((num4 * -2), -2f));
                         if (flag14) {
                             for (int k = num5; k < num6; k += 8) {
-                                SceneAs<Level>().ParticlesFG.Emit(P_Scrape, TopLeft + new Vector2(k + num4 * 2f, -1f), (num4 == 1) ? 2.3561945f : 0.7853982f);
+                                SceneAs<Level>().ParticlesFG.Emit(ZipMover.P_Scrape, TopLeft + new Vector2(k + num4 * 2f, -1f), (num4 == 1) ? 2.3561945f : 0.7853982f);
                             }
                         }
                         bool flag15 = Scene.CollideCheck<Solid>(value2 + new Vector2((num4 * -2), Height + 2f));
                         if (flag15) {
                             for (int l = num5; l < num6; l += 8) {
-                                SceneAs<Level>().ParticlesFG.Emit(P_Scrape, BottomLeft + new Vector2(l + num4 * 2f, 0f), (num4 == 1) ? -2.3561945f : -0.7853982f);
+                                SceneAs<Level>().ParticlesFG.Emit(ZipMover.P_Scrape, BottomLeft + new Vector2(l + num4 * 2f, 0f), (num4 == 1) ? -2.3561945f : -0.7853982f);
                             }
                         }
                     }
@@ -311,7 +308,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
 
 
         private class ZipMoverPathRenderer : Entity {
-            public LinkedZipMover ZipMover;
+            public LinkedZipMover TargetZip;
 
             private MTexture cog;
             private Vector2 from;
@@ -329,9 +326,9 @@ namespace Celeste.Mod.AdventureHelper.Entities {
                     cog = GFX.Game[defaultPath + "/cog"];
                 }
                 Depth = 5000;
-                ZipMover = zipMover;
-                from = ZipMover.start + new Vector2(ZipMover.Width / 2f, ZipMover.Height / 2f);
-                to = ZipMover.target + new Vector2(ZipMover.Width / 2f, ZipMover.Height / 2f);
+                TargetZip = zipMover;
+                from = TargetZip.start + new Vector2(TargetZip.Width / 2f, TargetZip.Height / 2f);
+                to = TargetZip.target + new Vector2(TargetZip.Width / 2f, TargetZip.Height / 2f);
                 sparkAdd = (from - to).SafeNormalize(5f).Perpendicular();
                 float num = (from - to).Angle();
                 sparkDirFromA = num + 0.3926991f;
@@ -341,30 +338,30 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             }
 
             public void CreateSparks() {
-                SceneAs<Level>().ParticlesBG.Emit(P_Sparks, from + sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirFromA);
-                SceneAs<Level>().ParticlesBG.Emit(P_Sparks, from - sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirFromB);
-                SceneAs<Level>().ParticlesBG.Emit(P_Sparks, to + sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirToA);
-                SceneAs<Level>().ParticlesBG.Emit(P_Sparks, to - sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirToB);
+                SceneAs<Level>().ParticlesBG.Emit(ZipMover.P_Sparks, from + sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirFromA);
+                SceneAs<Level>().ParticlesBG.Emit(ZipMover.P_Sparks, from - sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirFromB);
+                SceneAs<Level>().ParticlesBG.Emit(ZipMover.P_Sparks, to + sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirToA);
+                SceneAs<Level>().ParticlesBG.Emit(ZipMover.P_Sparks, to - sparkAdd + Calc.Random.Range(-Vector2.One, Vector2.One), sparkDirToB);
             }
 
             public override void Render() {
                 DrawCogs(Vector2.UnitY, new Color?(Color.Black));
                 DrawCogs(Vector2.Zero, null);
-                Draw.Rect(new Rectangle((int) (ZipMover.X - 1f), (int) (ZipMover.Y - 1f), (int) ZipMover.Width + 2, (int) ZipMover.Height + 2), Color.Black);
+                Draw.Rect(new Rectangle((int) (TargetZip.X - 1f), (int) (TargetZip.Y - 1f), (int) TargetZip.Width + 2, (int) TargetZip.Height + 2), Color.Black);
             }
 
             private void DrawCogs(Vector2 offset, Color? colorOverride = null) {
                 Vector2 vector = (to - from).SafeNormalize();
                 Vector2 value = vector.Perpendicular() * 3f;
                 Vector2 value2 = -vector.Perpendicular() * 4f;
-                float rotation = ZipMover.percent * 3.14159274f * 2f;
-                Draw.Line(from + value + offset, to + value + offset, (colorOverride != null) ? colorOverride.Value : ZipMover.ropeColor);
-                Draw.Line(from + value2 + offset, to + value2 + offset, (colorOverride != null) ? colorOverride.Value : ZipMover.ropeColor);
-                for (float num = 4f - ZipMover.percent * 3.14159274f * 8f % 4f; num < (to - from).Length(); num += 4f) {
+                float rotation = TargetZip.percent * 3.14159274f * 2f;
+                Draw.Line(from + value + offset, to + value + offset, (colorOverride != null) ? colorOverride.Value : TargetZip.ropeColor);
+                Draw.Line(from + value2 + offset, to + value2 + offset, (colorOverride != null) ? colorOverride.Value : TargetZip.ropeColor);
+                for (float num = 4f - TargetZip.percent * 3.14159274f * 8f % 4f; num < (to - from).Length(); num += 4f) {
                     Vector2 value3 = from + value + vector.Perpendicular() + vector * num;
                     Vector2 value4 = to + value2 - vector * num;
-                    Draw.Line(value3 + offset, value3 + vector * 2f + offset, (colorOverride != null) ? colorOverride.Value : ZipMover.ropeLightColor);
-                    Draw.Line(value4 + offset, value4 - vector * 2f + offset, (colorOverride != null) ? colorOverride.Value : ZipMover.ropeLightColor);
+                    Draw.Line(value3 + offset, value3 + vector * 2f + offset, (colorOverride != null) ? colorOverride.Value : TargetZip.ropeLightColor);
+                    Draw.Line(value4 + offset, value4 - vector * 2f + offset, (colorOverride != null) ? colorOverride.Value : TargetZip.ropeLightColor);
                 }
                 cog.DrawCentered(from + offset, (colorOverride != null) ? colorOverride.Value : Color.White, 1f, rotation);
                 cog.DrawCentered(to + offset, (colorOverride != null) ? colorOverride.Value : Color.White, 1f, rotation);
