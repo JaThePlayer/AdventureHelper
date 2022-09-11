@@ -1,0 +1,63 @@
+mods.AdventureHelper.name=Adventure Helper
+
+# Custom Crystal Heart
+entities.AdventureHelper/CustomCrystalHeart.placements.name.custom=Custom Crystal Heart (Custom)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.blue=Custom Crystal Heart (Blue)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.red=Custom Crystal Heart (Red)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.gold=Custom Crystal Heart (Gold)
+entities.AdventureHelper/CustomCrystalHeart.placements.name.white=Custom Crystal Heart (White)
+entities.AdventureHelper/CustomCrystalHeart.attributes.description.color=An RGB hex color. Tints the white template heart, glow, and particles.\n\nOnly used for empty or custom paths.
+entities.AdventureHelper/CustomCrystalHeart.attributes.description.path=The sprite ID of the heart. Leave empty to use the template heart.\n\nCustom sprites can be used if they include the required animations (see AdventureHelperSprites.xml for an example).
+
+# Outro Car
+entities.AdventureHelper/OutroCar.placements.name.outro_car=Outro Car
+entities.AdventureHelper/OutroCar.attributes.description.hasRoadAndBarriers=Determines whether the car should come with road and barriers.
+
+# Dash Push Block
+entities.AdventureHelper/DashPushBlock.placements.name.dash_push_block=Dash Push Block
+
+# Grouped Falling Block
+entities.AdventureHelper/GroupedFallingBlock.placements.name.grouped_falling_block=Falling Block (Grouped)
+entities.AdventureHelper/GroupedFallingBlock.attributes.description.tiletype=The tileset to use for the block. Blocks with the same tileset will be grouped together.
+entities.AdventureHelper/GroupedFallingBlock.attributes.description.climbFall=After a delay, the block will physically fall down until it comes into contact with another block. Can be set for each block individually.
+
+# Multiple Node Blade Track Spinner
+entities.AdventureHelper/BladeTrackSpinnerMultinode.placements.name.multiple_node_blade_track_spinner=Blade (Track Multi-Node)
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the blade to get from node to node.
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the blade waits at each node.
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the blade will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/BladeTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the blade will pause in place during cutscenes.
+
+# Multiple Node Dust Track Spinner
+entities.AdventureHelper/DustTrackSpinnerMultinode.placements.name.multiple_node_dust_track_spinner=Dust Sprite (Track Multi-Node)
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the spinner to get from node to node.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the spinner waits at each node.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the spinner will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/DustTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the spinner will pause in place during cutscenes.
+
+# Multiple Node Star Track Spinner
+entities.AdventureHelper/StarTrackSpinnerMultinode.placements.name.multiple_node_star_track_spinner=Star (Track Multi-Node)
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.moveTime=The number of seconds it takes for the star to get from node to node.
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.pauseTime=The number of seconds the star waits at each node.
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.pauseFlag=When this flag is active, the star will pause in place. This lasts until the player dies, leaves the room, or the flag is deactivated.
+entities.AdventureHelper/StarTrackSpinnerMultinode.attributes.description.pauseOnCutscene=When checked, the star will pause in place during cutscenes.
+
+# Synced Zip Mover
+entities.AdventureHelper/LinkedZipMover.placements.name.normal=Zip Mover (Synced)
+entities.AdventureHelper/LinkedZipMover.placements.name.custom_speed=Zip Mover (Synced, Custom Speed)
+entities.AdventureHelper/LinkedZipMover.attributes.description.colorCode=The RGB hex color of the zip mover track. Zip movers with the same color will be linked together.
+entities.AdventureHelper/LinkedZipMover.attributes.description.speedMultiplier=Multiplies the travel speed of the zip mover. 1.0 is normal speed, 0.5 is half speed, 2.0 is double speed, etc.\n\nNOTE: Audio glitches may occur at non-default speeds.
+entities.AdventureHelper/LinkedZipMover.attributes.description.spritePath=Path to the zip mover textures. Leave blank to use default. If a texture is not found it will use one from the default set.
+
+# No Return Synced Zip Mover
+entities.AdventureHelper/LinkedZipMoverNoReturn.placements.name.normal=Zip Mover (Synced, No Return)
+entities.AdventureHelper/LinkedZipMoverNoReturn.placements.name.custom_speed=Zip Mover (Synced, No Return, Custom Speed)
+entities.AdventureHelper/LinkedZipMoverNoReturn.attributes.description.colorCode=The RGB hex color of the zip mover track. Zip movers with the same color will be linked together.
+entities.AdventureHelper/LinkedZipMoverNoReturn.attributes.description.speedMultiplier=Multiplies the travel speed of the zip mover. 1.0 is normal speed, 0.5 is half speed, 2.0 is double speed, etc.\n\nNOTE: Audio glitches may occur at non-default speeds.
+entities.AdventureHelper/LinkedZipMoverNoReturn.attributes.description.spritePath=Path to the zip mover textures. Leave blank to use default. If a texture is not found it will use one from the default set.
+
+# No Return Zip Mover
+entities.AdventureHelper/ZipMoverNoReturn.placements.name.normal=Zip Mover (No Return)
+entities.AdventureHelper/ZipMoverNoReturn.placements.name.custom_speed=Zip Mover (No Return, Custom Speed)
+entities.AdventureHelper/ZipMoverNoReturn.attributes.description.speedMultiplier=Multiplies the travel speed of the zip mover. 1.0 is normal speed, 0.5 is half speed, 2.0 is double speed, etc.\n\nNOTE: Audio glitches may occur at non-default speeds.
+entities.AdventureHelper/ZipMoverNoReturn.attributes.description.spritePath=Path to the zip mover textures. Leave blank to use default. If a texture is not found it will use one from the default set.
