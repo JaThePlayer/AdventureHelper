@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Monocle;
 
 namespace Celeste.Mod.AdventureHelper.Entities {
-    [CustomEntity("AdventureHelper/MultipleNodeTrackSpinner")]
+    [CustomEntity("AdventureHelper/StarTrackSpinnerMultinode")]
     public class StarTrackSpinnerMultinode : MultipleNodeTrackSpinner {
         public Sprite Sprite;
 

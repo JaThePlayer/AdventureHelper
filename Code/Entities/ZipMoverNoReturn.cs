@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.AdventureHelper.Entities {
-    [CustomEntity("AdventureHelper/LinkedZipMoverNoReturn")]
+    [CustomEntity("AdventureHelper/ZipMoverNoReturn")]
     public class ZipMoverNoReturn : Solid {
         public const string defaultPath = "objects/AdventureHelper/noreturnzipmover";
 
