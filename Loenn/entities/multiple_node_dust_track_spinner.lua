@@ -1,4 +1,4 @@
-local drawableSprite = require "structs.drawable_sprite"
+local drawableSprite = require("structs.drawable_sprite")
 
 local multipleNodeDustTrackSpinner = {}
 
@@ -10,7 +10,7 @@ multipleNodeDustTrackSpinner.fieldInformation = {
     moveTime = {
         minimumValue = 0.0
     },
-    pauseTile = {
+    pauseTime = {
         minimumValue = 0.0
     }
 }

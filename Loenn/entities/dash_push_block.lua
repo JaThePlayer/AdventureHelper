@@ -1,4 +1,4 @@
-local drawableNinePatch = require "structs.drawable_nine_patch"
+local drawableNinePatch = require("structs.drawable_nine_patch")
 
 local dashPushBlock = {}
 

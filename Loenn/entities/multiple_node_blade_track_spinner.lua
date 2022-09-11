@@ -8,7 +8,7 @@ multipleNodeBladeTrackSpinner.fieldInformation = {
     moveTime = {
         minimumValue = 0.0
     },
-    pauseTile = {
+    pauseTime = {
         minimumValue = 0.0
     }
 }

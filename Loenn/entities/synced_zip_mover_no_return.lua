@@ -1,8 +1,8 @@
-local drawableSprite = require "structs.drawable_sprite"
-local drawableLine = require "structs.drawable_line"
-local drawableNinePatch = require "structs.drawable_nine_patch"
-local drawableRectangle = require "structs.drawable_rectangle"
-local utils = require "utils"
+local drawableSprite = require("structs.drawable_sprite")
+local drawableLine = require("structs.drawable_line")
+local drawableNinePatch = require("structs.drawable_nine_patch")
+local drawableRectangle = require("structs.drawable_rectangle")
+local utils = require("utils")
 
 local syncedZipMoverNoReturn = {}
 
@@ -18,10 +18,7 @@ syncedZipMoverNoReturn.fieldInformation = {
     },
     spritePath = {
         editable = true,
-        options = {
-            ["Normal Theme (objects/zipmover)"] = "objects/zipmover",
-            ["Moon Theme (objects/zipmover/moon)"] = "objects/zipmover/moon"
-        }
+        options = { "", "objects/zipmover" }
     },
     speedMultiplier = {
         minimumValue = 0.0

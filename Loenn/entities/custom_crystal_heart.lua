@@ -1,5 +1,5 @@
-local drawableSprite = require "structs.drawable_sprite"
-local utils = require "utils"
+local drawableSprite = require("structs.drawable_sprite")
+local utils = require("utils")
 
 local customCrystalHeart = {}
 
@@ -10,13 +10,7 @@ customCrystalHeart.fieldInformation = {
         fieldType = "color"
     },
     path = {
-        options = {
-            ["Custom Heart (empty path)"] = "",
-            ["Blue Heart (heartgem0)"] = "heartgem0",
-            ["Red Heart (heartgem1)"] = "heartgem1",
-            ["Gold Heart (heartgem2)"] = "heartgem2",
-            ["White Heart (heartgem3)"] = "heartgem3"
-        }
+        options = { "", "heartgem0", "heartgem1", "heartgem2", "heartgem3" }
     }
 }
 

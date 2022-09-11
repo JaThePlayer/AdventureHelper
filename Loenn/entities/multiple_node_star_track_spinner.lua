@@ -1,19 +1,19 @@
-local multipleNodeBladeTrackSpinner = {}
+local multipleNodeStarTrackSpinner = {}
 
-multipleNodeBladeTrackSpinner.name = "AdventureHelper/StarTrackSpinnerMultinode"
-multipleNodeBladeTrackSpinner.nodeLimits = {1, -1}
-multipleNodeBladeTrackSpinner.nodeLineRenderType = "line"
+multipleNodeStarTrackSpinner.name = "AdventureHelper/StarTrackSpinnerMultinode"
+multipleNodeStarTrackSpinner.nodeLimits = {1, -1}
+multipleNodeStarTrackSpinner.nodeLineRenderType = "line"
 
-multipleNodeBladeTrackSpinner.fieldInformation = {
+multipleNodeStarTrackSpinner.fieldInformation = {
     moveTime = {
         minimumValue = 0.0
     },
-    pauseTile = {
+    pauseTime = {
         minimumValue = 0.0
     }
 }
 
-multipleNodeBladeTrackSpinner.placements = {
+multipleNodeStarTrackSpinner.placements = {
     {
         name = "multiple_node_star_track_spinner",
         data = {
@@ -25,6 +25,6 @@ multipleNodeBladeTrackSpinner.placements = {
     }
 }
 
-multipleNodeBladeTrackSpinner.texture = "danger/starfish14"
+multipleNodeStarTrackSpinner.texture = "danger/starfish14"
 
-return multipleNodeBladeTrackSpinner
+return multipleNodeStarTrackSpinner

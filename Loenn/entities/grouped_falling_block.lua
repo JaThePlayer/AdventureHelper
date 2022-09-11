@@ -1,4 +1,4 @@
-local fakeTilesHelper = require "helpers.fake_tiles"
+local fakeTilesHelper = require("helpers.fake_tiles")
 
 local groupedFallingBlock = {}
 

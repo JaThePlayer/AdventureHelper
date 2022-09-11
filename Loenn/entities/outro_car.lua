@@ -1,6 +1,6 @@
-local drawableSprite = require "structs.drawable_sprite"
-local colors = require "consts.xna_colors"
-local utils = require "utils"
+local drawableSprite = require("structs.drawable_sprite")
+local colors = require("consts.xna_colors")
+local utils = require("utils")
 
 local outroCar = {}
 
