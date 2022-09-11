@@ -28,7 +28,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         private Vector2 target;
         private float percent;
 
-        public LinkedZipMoverNoReturn(Vector2 position, int width, int height, Vector2 target, string colorCode, float speedMultiplier, string spritePath) : base(position, width, height, false) {
+        public LinkedZipMoverNoReturn(Vector2 position, int width, int height, Vector2 target, string colorCode, float speedMultiplier, string spritePath) 
+            : base(position, width, height, false) {
             spritePath.Trim('/');
             spritePath.Trim('\\');
             if (spritePath == string.Empty) {
@@ -79,7 +80,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         }
 
         public LinkedZipMoverNoReturn(EntityData data, Vector2 offset) 
-            : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Attr("colorCode", "000000"), data.Float("speedMultiplier", 1f), data.Attr("spritePath", defaultPath)) { }
+            : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Attr("colorCode", "000000"), data.Float("speedMultiplier", 1f), data.Attr("spritePath", defaultPath)) { 
+        }
 
         public string ColorCode { get; }
 

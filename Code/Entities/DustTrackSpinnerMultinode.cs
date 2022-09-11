@@ -11,7 +11,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         private Vector2 previousVector;
         private Vector2 nextVector;
 
-        public DustTrackSpinnerMultinode(EntityData data, Vector2 offset) : base(data, offset) {
+        public DustTrackSpinnerMultinode(EntityData data, Vector2 offset) 
+            : base(data, offset) {
             Add(dusty = new DustGraphic(true, false, false));
             Vector2 start = Path[CurrentStart];
             Vector2 next = Path[(CurrentStart + 1) % Path.Length];

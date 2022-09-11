@@ -27,7 +27,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
 
         public string ColorCode { get; private set; }
 
-        public LinkedZipMover(Vector2 position, int width, int height, Vector2 target, string colorCode, float speedMultiplier, string spritePath) : base(position, width, height, false) {
+        public LinkedZipMover(Vector2 position, int width, int height, Vector2 target, string colorCode, float speedMultiplier, string spritePath) 
+            : base(position, width, height, false) {
             spritePath.Trim('/');
             spritePath.Trim('\\');
             this.spritePath = spritePath;
@@ -74,7 +75,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             SurfaceSoundIndex = 7;
         }
 
-        public LinkedZipMover(EntityData data, Vector2 offset) : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Attr("colorCode", "000000"), data.Float("speedMultiplier", 1f), data.Attr("spritePath", defaultPath)) {
+        public LinkedZipMover(EntityData data, Vector2 offset) 
+            : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Attr("colorCode", "000000"), data.Float("speedMultiplier", 1f), data.Attr("spritePath", defaultPath)) {
         }
 
         public override void Added(Scene scene) {

@@ -11,7 +11,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         private bool trail;
         private int colorID;
 
-        public StarTrackSpinnerMultinode(EntityData data, Vector2 offset) : base(data, offset) {
+        public StarTrackSpinnerMultinode(EntityData data, Vector2 offset) 
+            : base(data, offset) {
             Add(Sprite = GFX.SpriteBank.Create("moonBlade"));
             colorID = Calc.Random.Choose(0, 1, 2);
             Sprite.Play("idle" + colorID);

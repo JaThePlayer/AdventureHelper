@@ -9,7 +9,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
 
         private bool hasStarted;
 
-        public BladeTrackSpinnerMultinode(EntityData data, Vector2 offset) : base(data, offset) {
+        public BladeTrackSpinnerMultinode(EntityData data, Vector2 offset) 
+            : base(data, offset) {
             Add(Sprite = GFX.SpriteBank.Create("templeBlade"));
             Sprite.Play("idle");
             Depth = -50;

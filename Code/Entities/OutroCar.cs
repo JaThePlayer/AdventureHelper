@@ -8,7 +8,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
     public class OutroCar : IntroCar {
         private readonly DynamicData origData;
 
-        public OutroCar(EntityData data, Vector2 offset) : base(data, offset) {
+        public OutroCar(EntityData data, Vector2 offset) 
+            : base(data, offset) {
             origData = new DynamicData(typeof(IntroCar), this);
             Image bodySprite = origData.Get<Image>("bodySprite");
             bodySprite.FlipX = true;

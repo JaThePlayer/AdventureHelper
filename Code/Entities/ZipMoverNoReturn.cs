@@ -32,7 +32,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             ropeLightColor = Calc.HexToColor("9e9e9e");
         }
 
-        public ZipMoverNoReturn(Vector2 position, int width, int height, Vector2 target, float speedMultiplier, string spritePath) : base(position, width, height, false) {
+        public ZipMoverNoReturn(Vector2 position, int width, int height, Vector2 target, float speedMultiplier, string spritePath) 
+            : base(position, width, height, false) {
             spritePath.Trim('/');
             spritePath.Trim('\\');
             if (spritePath == string.Empty) {
@@ -79,7 +80,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             Add(sfx);
         }
 
-        public ZipMoverNoReturn(EntityData data, Vector2 offset) : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Float("speedMultiplier", 1f), data.Attr("spritePath", defaultPath)) {
+        public ZipMoverNoReturn(EntityData data, Vector2 offset) 
+            : this(data.Position + offset, data.Width, data.Height, data.Nodes[0] + offset, data.Float("speedMultiplier", 1f), data.Attr("spritePath", defaultPath)) {
         }
 
         public override void Added(Scene scene) {

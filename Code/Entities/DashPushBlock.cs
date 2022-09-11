@@ -12,9 +12,12 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         protected float _flashPercent = 0.0f;
         protected SineWave _sine;
 
-        public DashPushBlock(EntityData data, Vector2 offset) : this(data.Position + offset, data.Width, data.Height) { }
+        public DashPushBlock(EntityData data, Vector2 offset) 
+            : this(data.Position + offset, data.Width, data.Height) { 
+        }
 
-        public DashPushBlock(Vector2 position, float width, float height) : base(position, width, height, true) {
+        public DashPushBlock(Vector2 position, float width, float height) 
+            : base(position, width, height, true) {
             _body = new MTexture[3, 3];
             _flash = new MTexture[3, 3];
 

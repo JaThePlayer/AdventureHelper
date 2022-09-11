@@ -22,7 +22,7 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         private GroupedFallingBlock _master;
 
         public GroupedFallingBlock(Vector2 position, float width, float height, char tileType, bool climbFall)
-        : base(position, width, height, safe: true) {
+            : base(position, width, height, safe: true) {
             _climbFall = climbFall;
             _tileType = tileType;
             Depth = -9000;
