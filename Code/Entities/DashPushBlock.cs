@@ -12,10 +12,6 @@ namespace Celeste.Mod.AdventureHelper.Entities {
         protected float _flashPercent = 0.0f;
         protected SineWave _sine;
 
-        public DashPushBlock(EntityData data, Vector2 offset) 
-            : this(data.Position + offset, data.Width, data.Height) { 
-        }
-
         public DashPushBlock(Vector2 position, float width, float height) 
             : base(position, width, height, true) {
             _body = new MTexture[3, 3];
@@ -32,6 +28,10 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             _sine.Randomize();
 
             OnDashCollide = OnDashed;
+        }
+
+        public DashPushBlock(EntityData data, Vector2 offset)
+            : this(data.Position + offset, data.Width, data.Height) {
         }
 
         public override void Update() {
