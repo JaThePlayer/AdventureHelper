@@ -54,13 +54,8 @@ namespace Celeste.Mod.AdventureHelper.Entities {
             firstDirection = true;
             Add(new Coroutine(Sequence(), true));
             Add(new LightOcclude(1f));
-            try {
-                Add(streetlight = new Sprite(GFX.Game, spritePath + "/light"));
-                streetlight.Add("frames", "", 1f);
-            } catch {
-                Add(streetlight = new Sprite(GFX.Game, "objects/zipmover/light"));
-                streetlight.Add("frames", "", 1f);
-            }
+            Add(streetlight = new Sprite(GFX.Game, GFX.Game.GetAtlasSubtexturesAt(spritePath + "/light", 0)?.AtlasPath is not ("__fallback" or null) ? spritePath + "/light" : "objects/zipmover/light"));
+            streetlight.Add("frames", "", 1f);
 
             streetlight.Play("frames");
             streetlight.Active = false;
